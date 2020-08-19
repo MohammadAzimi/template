@@ -1,23 +1,19 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {View, Text, StatusBar} from 'react-native';
+import {StatusBar, I18nManager} from 'react-native';
 import {Provider} from 'react-redux';
 
 import store from './src/store/store';
+import HomeScreen from './src/screens/HomeScreen';
 
-const HomeAndOnlyScreen = () => {
-  return (
-    <View>
-      <Text>Redux is ready</Text>
-    </View>
-  );
-};
+I18nManager.forceRTL(false);
+I18nManager.allowRTL(false);
 
 const App = () => {
   return (
     <Provider {...{store}}>
-      <StatusBar barStyle="dark-content" />
-      <HomeAndOnlyScreen />
+      <StatusBar barStyle="light-content" />
+      <HomeScreen />
     </Provider>
   );
 };
