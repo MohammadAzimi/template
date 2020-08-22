@@ -4,7 +4,6 @@ import {StatusBar, I18nManager} from 'react-native';
 import {Provider} from 'react-redux';
 
 import store from './src/store/store';
-import HomeScreen from './src/screens/HomeScreen';
 import ApplicationRoutes from './src/configs/Navigations';
 
 I18nManager.forceRTL(false);
