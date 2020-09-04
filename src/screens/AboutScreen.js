@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import {Text} from 'react-native-paper';
 
 const AboutScreen = () => {
   return (
@@ -17,7 +18,6 @@ const styles = StyleSheet.create({
   },
   textMain: {
     fontSize: 24,
-    color: '#3A3838',
     textAlign: 'center',
   },
 });

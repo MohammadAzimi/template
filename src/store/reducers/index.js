@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
+import globalReducer from './Globals';
 
-//------ Should be in a seprate file ------//
+//------ Should be in a separate file ------//
 
 const initialState = {
   token: null,
@@ -26,6 +27,7 @@ function authReducer(state = initialState, action) {
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  globals: globalReducer,
 });
 
 export default rootReducer;

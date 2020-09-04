@@ -5,7 +5,12 @@ const ApiConstants = {
   API_ACCESS_TOKEN_PREFIX: '',
 };
 
+const StorageKeys = {
+  THEME_NAME: 'THEME_NAME',
+};
+
 export {
   // eslint
   ApiConstants,
+  StorageKeys,
 };

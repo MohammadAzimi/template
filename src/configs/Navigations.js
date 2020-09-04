@@ -4,6 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+import CustomDrawerContent from '../components/Drawer';
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -11,6 +13,7 @@ const Tab = createBottomTabNavigator();
 import HomeScreen from '../screens/HomeScreen';
 import SettingScreen from '../screens/SettingScreen';
 import AboutScreen from '../screens/AboutScreen';
+import {StatusBar} from 'react-native';
 
 function HomeStack() {
   return (
@@ -20,7 +23,8 @@ function HomeStack() {
   );
 }
 
-function Tabs() {
+function Tabs(props) {
+  console.log(props);
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeStack} />
@@ -30,22 +34,30 @@ function Tabs() {
 }
 
 // eslint
-export default function ApplicationRoutes() {
+export default function ApplicationRoutes({theme}) {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Tabs" drawerType="slide">
-        <Drawer.Screen
-          key="Tabs"
-          name="Home"
-          component={Tabs} //no explicit Stack.Navigator is permitted!
-        />
-        <Drawer.Screen
-          key="About"
-          name="About"
-          component={AboutScreen} //no explicit Stack.Navigator is permitted!
-          options={{headerShown: false}}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <>
+      <StatusBar
+        barStyle={theme.dark ? 'light-content' : 'dark-content'}
+        backgroundColor={theme.colors.background}
+      />
+      <NavigationContainer theme={theme}>
+        <Drawer.Navigator
+          initialRouteName="Tabs"
+          drawerType="slide"
+          drawerContent={(props) => <CustomDrawerContent {...props} />}>
+          <Drawer.Screen
+            key="Tabs"
+            name="Home"
+            component={Tabs} //no explicit Stack.Navigator is permitted!
+          />
+          <Drawer.Screen
+            key="About"
+            name="About"
+            component={AboutScreen} //no explicit Stack.Navigator is permitted!
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </>
   );
 }

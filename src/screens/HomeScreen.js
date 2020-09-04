@@ -1,8 +1,10 @@
 import React from 'react';
-import {SafeAreaView, View, Text, StyleSheet, Linking} from 'react-native';
+import {SafeAreaView, View, StyleSheet, Linking} from 'react-native';
+import {Text, useTheme} from 'react-native-paper';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {groupOneApiService} from '../api/requests';
+import {Margin, FontSize} from '../configs/styles';
 
 class Screen extends React.Component {
   constructor(props) {
@@ -25,6 +27,9 @@ class Screen extends React.Component {
   }
 
   render() {
+    const {
+      theme: {colors},
+    } = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.textTemplate}>
@@ -36,6 +41,7 @@ class Screen extends React.Component {
             <Icon
               name="linkedin"
               size={20}
+              color={colors.text}
               onPress={this.openLink.bind(
                 this,
                 'https://linkedin.com/in/mohammadazimi',
@@ -44,6 +50,7 @@ class Screen extends React.Component {
             <Icon
               name="github"
               size={20}
+              color={colors.text}
               onPress={this.openLink.bind(
                 this,
                 'https://github.com/mohammadazimi',
@@ -52,11 +59,13 @@ class Screen extends React.Component {
             <Icon
               name="telegram"
               size={20}
+              color={colors.text}
               onPress={this.openLink.bind(this, 'https://t.me/mh_az97')}
             />
             <Icon
               name="twitter"
               size={20}
+              color={colors.text}
               onPress={this.openLink.bind(
                 this,
                 'https://twitter.com/mohammad_az97',
@@ -65,6 +74,7 @@ class Screen extends React.Component {
             <Icon
               name="envelope"
               size={20}
+              color={colors.text}
               onPress={this.openLink.bind(
                 this,
                 'mailto:mohammadazimi91@gmail.com',
@@ -80,27 +90,24 @@ class Screen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
   },
   textTemplate: {
-    fontSize: 20,
-    color: '#3A3838',
+    fontSize: FontSize.large_x,
     textAlign: 'center',
   },
   textDeveloper: {
-    fontSize: 12,
-    color: '#3A3838',
+    fontSize: FontSize.small_x,
     textAlign: 'center',
-    marginTop: 64,
+    marginTop: Margin.large_xxx,
   },
   linkingBox: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginTop: 32,
+    marginTop: Margin.large_xx,
   },
 });
 
@@ -112,8 +119,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // removeUserProfile: dispatch(logoutUser())
+    // removeUserProfile: () => dispatch(logoutUser())
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Screen);
+const WrappedComponent = connect(mapStateToProps, mapDispatchToProps)(Screen);
+
+export default function (props) {
+  const theme = useTheme();
+
+  return <WrappedComponent {...props} theme={theme} />;
+}
