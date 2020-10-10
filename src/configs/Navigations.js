@@ -7,12 +7,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import CustomDrawerContent from '../components/Drawer';
 
 const Stack = createStackNavigator();
+const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
 import HomeScreen from '../screens/HomeScreen';
 import SettingScreen from '../screens/SettingScreen';
 import AboutScreen from '../screens/AboutScreen';
+import SplashScreen from '../screens/SplashScreen';
 import {StatusBar} from 'react-native';
 
 function HomeStack() {
@@ -33,6 +35,26 @@ function Tabs(props) {
   );
 }
 
+function DrawerStack() {
+  return (
+    <Drawer.Navigator
+      initialRouteName="Tabs"
+      drawerType="slide"
+      drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen
+        key="Tabs"
+        name="Home"
+        component={Tabs} //no explicit Stack.Navigator is permitted!
+      />
+      <Drawer.Screen
+        key="About"
+        name="About"
+        component={AboutScreen} //no explicit Stack.Navigator is permitted!
+      />
+    </Drawer.Navigator>
+  );
+}
+
 // eslint
 export default function ApplicationRoutes({theme}) {
   return (
@@ -42,21 +64,10 @@ export default function ApplicationRoutes({theme}) {
         backgroundColor={theme.colors.background}
       />
       <NavigationContainer theme={theme}>
-        <Drawer.Navigator
-          initialRouteName="Tabs"
-          drawerType="slide"
-          drawerContent={(props) => <CustomDrawerContent {...props} />}>
-          <Drawer.Screen
-            key="Tabs"
-            name="Home"
-            component={Tabs} //no explicit Stack.Navigator is permitted!
-          />
-          <Drawer.Screen
-            key="About"
-            name="About"
-            component={AboutScreen} //no explicit Stack.Navigator is permitted!
-          />
-        </Drawer.Navigator>
+        <Stack.Navigator headerMode="none">
+          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="Drawer" component={DrawerStack} />
+        </Stack.Navigator>
       </NavigationContainer>
     </>
   );
