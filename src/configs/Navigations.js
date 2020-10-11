@@ -1,36 +1,64 @@
 import * as React from 'react';
+import {StatusBar} from 'react-native';
+import {useTheme} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import CustomDrawerContent from '../components/Drawer';
 
 const Stack = createStackNavigator();
-const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 import HomeScreen from '../screens/HomeScreen';
 import SettingScreen from '../screens/SettingScreen';
 import AboutScreen from '../screens/AboutScreen';
 import SplashScreen from '../screens/SplashScreen';
-import {StatusBar} from 'react-native';
+import {IconSize} from './styles';
 
 function HomeStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Mohammad Azimi" component={HomeScreen} />
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Features" component={HomeScreen} />
     </Stack.Navigator>
   );
 }
 
-function Tabs(props) {
-  console.log(props);
+function Tabs() {
+  const {colors} = useTheme();
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Setting" component={SettingScreen} />
+    <Tab.Navigator barStyle={{backgroundColor: colors.contrast}}>
+      <Tab.Screen
+        name="Home"
+        component={HomeStack}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({color, focused}) => (
+            <MaterialCommunityIcons
+              name={focused ? 'home-variant' : 'home-variant-outline'}
+              color={color}
+              size={IconSize.bottom_navigation}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Setting"
+        component={SettingScreen}
+        options={{
+          tabBarLabel: 'Setting',
+          tabBarIcon: ({color, focused}) => (
+            <MaterialCommunityIcons
+              name={focused ? 'cog' : 'cog-outline'}
+              color={color}
+              size={IconSize.bottom_navigation}
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

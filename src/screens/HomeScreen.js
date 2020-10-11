@@ -1,19 +1,63 @@
 import React from 'react';
-import {SafeAreaView, View, StyleSheet, Linking} from 'react-native';
-import {Text, useTheme} from 'react-native-paper';
+import {SafeAreaView, View, StyleSheet, FlatList, Alert} from 'react-native';
+import {Card, Text, Title, useTheme} from 'react-native-paper';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {groupOneApiService} from '../api/requests';
-import {Margin, FontSize} from '../configs/styles';
+import {Margin, FontSize, IconSize} from '../configs/styles';
+
+const featuresList = [
+  {
+    id: 'id_chart',
+    title: 'Charts',
+    subTitle: '',
+    iconName: 'chart-line',
+    iconColor: '',
+    backgroundColor: '',
+    description: 'lorem ipsum',
+  },
+  {
+    id: 'id_news',
+    title: 'News',
+    subTitle: '',
+    iconName: 'newspaper',
+    iconColor: '',
+    backgroundColor: '',
+    description: 'lorem ipsum',
+  },
+  {
+    id: 'id_maps',
+    title: 'Map',
+    subTitle: '',
+    iconName: 'map-marked-alt',
+    iconColor: '',
+    backgroundColor: '',
+    description: 'lorem ipsum',
+  },
+  {
+    id: 'id_notification',
+    title: 'Notification',
+    subTitle: '',
+    iconName: 'bell',
+    iconColor: '',
+    backgroundColor: '',
+    description: 'lorem ipsum',
+  },
+  {
+    id: 'id_donation',
+    title: 'Buy me a coffee',
+    subTitle: '',
+    iconName: 'coffee',
+    iconColor: '',
+    backgroundColor: '',
+    description: 'lorem ipsum',
+  },
+];
 
 class Screen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-  }
-
-  openLink(link) {
-    Linking.openURL(link).catch((e) => console.log(e));
   }
 
   // api fetch example
@@ -26,62 +70,36 @@ class Screen extends React.Component {
     });
   }
 
-  render() {
+  renderItems({item}) {
     const {
       theme: {colors},
     } = this.props;
     return (
+      <Card style={styles.card} onPress={() => Alert.alert(item.description)}>
+        <Card.Content style={styles.cardContent}>
+          <Icon
+            name={item.iconName}
+            color={item.iconColor || colors.primary}
+            size={IconSize.home_items}
+          />
+          <Title style={styles.cardTitle}>{item.title}</Title>
+        </Card.Content>
+      </Card>
+    );
+  }
+
+  render() {
+    return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.textTemplate}>
-          A template for boosting new react-native projects
-        </Text>
-        <View>
-          <Text style={styles.textDeveloper}>Created by Mohammad Azimi</Text>
-          <View style={styles.linkingBox}>
-            <Icon
-              name="linkedin"
-              size={20}
-              color={colors.text}
-              onPress={this.openLink.bind(
-                this,
-                'https://linkedin.com/in/mohammadazimi',
-              )}
-            />
-            <Icon
-              name="github"
-              size={20}
-              color={colors.text}
-              onPress={this.openLink.bind(
-                this,
-                'https://github.com/mohammadazimi',
-              )}
-            />
-            <Icon
-              name="telegram"
-              size={20}
-              color={colors.text}
-              onPress={this.openLink.bind(this, 'https://t.me/mh_az97')}
-            />
-            <Icon
-              name="twitter"
-              size={20}
-              color={colors.text}
-              onPress={this.openLink.bind(
-                this,
-                'https://twitter.com/mohammad_az97',
-              )}
-            />
-            <Icon
-              name="envelope"
-              size={20}
-              color={colors.text}
-              onPress={this.openLink.bind(
-                this,
-                'mailto:mohammadazimi91@gmail.com',
-              )}
-            />
-          </View>
-        </View>
+        <FlatList
+          data={featuresList}
+          style={styles.listStyle}
+          contentContainerStyle={styles.listContent}
+          renderItem={this.renderItems.bind(this)}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          // columnWrapperStyle={{justifyContent: 'space-between'}}
+        />
       </SafeAreaView>
     );
   }
@@ -90,25 +108,20 @@ class Screen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
   },
   textTemplate: {
     fontSize: FontSize.large_x,
     textAlign: 'center',
   },
-  textDeveloper: {
-    fontSize: FontSize.small_x,
-    textAlign: 'center',
-    marginTop: Margin.large_xxx,
+  listStyle: {},
+  listContent: {padding: Margin.normal},
+  card: {
+    margin: Margin.small,
+    width: '50%',
+    padding: Margin.normal,
   },
-  linkingBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: Margin.large_xx,
-  },
+  cardContent: {alignItems: 'center', justifyContent: 'center'},
+  cardTitle: {marginTop: Margin.normal, textAlign: 'center'},
 });
 
 const mapStateToProps = (state) => {

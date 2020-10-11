@@ -19,4 +19,10 @@ const FontSize = {
 };
 Object.freeze(FontSize);
 
-export {Margin, FontSize};
+const IconSize = {
+  bottom_navigation: 26,
+  home_items: 42,
+};
+Object.freeze(IconSize);
+
+export {Margin, FontSize, IconSize};

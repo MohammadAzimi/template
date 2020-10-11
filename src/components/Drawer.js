@@ -7,7 +7,6 @@ import {StyleSheet, ImageBackground} from 'react-native';
 import {Headline, withTheme} from 'react-native-paper';
 
 function CustomDrawerContent(props) {
-  console.log(props);
   const {colors} = props.theme;
   return (
     <DrawerContentScrollView
