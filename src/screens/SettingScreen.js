@@ -13,11 +13,8 @@ const SettingScreen = (props) => {
   const isDarkMode = globals.themeName === Themes.DARK;
   const {colors} = useTheme();
 
-  const onToggleTheme = React.useCallback(
-    (_isDarkMode) =>
-      dispatch(changeTheme(_isDarkMode ? Themes.LIGHT : Themes.DARK)),
-    [dispatch],
-  );
+  const onToggleTheme = (_isDarkMode) =>
+    dispatch(changeTheme(_isDarkMode ? Themes.LIGHT : Themes.DARK));
 
   // const onToggleSwitch = () => dispatch(change)};
   return (
