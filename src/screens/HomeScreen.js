@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, View, StyleSheet, FlatList, Alert} from 'react-native';
-import {Card, Text, Title, useTheme} from 'react-native-paper';
+import {Card, Text, Title, withTheme} from 'react-native-paper';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {groupOneApiService} from '../api/requests';
@@ -73,9 +73,16 @@ class Screen extends React.Component {
   renderItems({item}) {
     const {
       theme: {colors},
+      navigation,
     } = this.props;
     return (
-      <Card style={styles.card} onPress={() => Alert.alert(item.description)}>
+      <Card
+        style={styles.card}
+        onPress={() =>
+          item.destination
+            ? navigation.navigate(item.destination)
+            : Alert.alert(item.description)
+        }>
         <Card.Content style={styles.cardContent}>
           <Icon
             name={item.iconName}
@@ -138,8 +145,4 @@ const mapDispatchToProps = (dispatch) => {
 
 const WrappedComponent = connect(mapStateToProps, mapDispatchToProps)(Screen);
 
-export default function (props) {
-  const theme = useTheme();
-
-  return <WrappedComponent {...props} theme={theme} />;
-}
+export default withTheme(WrappedComponent);
