@@ -17,12 +17,18 @@ import HomeScreen from '../screens/HomeScreen';
 import SettingScreen from '../screens/SettingScreen';
 import AboutScreen from '../screens/AboutScreen';
 import SplashScreen from '../screens/SplashScreen';
+import ChartScreen from '../screens/charts';
 import {IconSize} from './styles';
 
-function HomeStack() {
+function HomeStack({navigation}) {
   return (
-    <Stack.Navigator headerMode="none">
+    <Stack.Navigator headerMode="none" screenOptions={{tabBarVisible: false}}>
       <Stack.Screen name="Features" component={HomeScreen} />
+      <Stack.Screen
+        name="ChartScreen"
+        component={ChartScreen}
+        options={{tabBarVisible: false}}
+      />
     </Stack.Navigator>
   );
 }

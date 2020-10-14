@@ -15,6 +15,7 @@ const featuresList = [
     iconColor: '',
     backgroundColor: '',
     description: 'lorem ipsum',
+    destination: 'ChartScreen',
   },
   {
     id: 'id_news',
