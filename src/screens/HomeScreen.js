@@ -35,6 +35,16 @@ const featuresList = [
     description: 'lorem ipsum',
   },
   {
+    id: 'id_jalali_calender',
+    title: 'Calendar',
+    subTitle: '',
+    iconName: 'calendar-alt',
+    iconColor: '',
+    backgroundColor: '',
+    description: 'lorem ipsum',
+    destination: 'Features_Calender',
+  },
+  {
     id: 'id_notification',
     title: 'Notification',
     subTitle: '',

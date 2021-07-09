@@ -18,11 +18,13 @@ import SettingScreen from '../screens/SettingScreen';
 import AboutScreen from '../screens/AboutScreen';
 import SplashScreen from '../screens/SplashScreen';
 import {IconSize} from './styles';
+import {CalendarScreen} from '../screens/calendar';
 
 function HomeStack() {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Features" component={HomeScreen} />
+      <Stack.Screen name="Features_Calender" component={CalendarScreen} />
     </Stack.Navigator>
   );
 }
